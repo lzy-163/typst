@@ -15,10 +15,10 @@ jobs:
     if: always()
     steps:
       - name: Tests successful
-        if: ${{ !(contains(needs.*.result, 'failure')) }}
+        if: ${{ needs.test-matrix.result == 'success' }}
         run: exit 0
       - name: Tests failing
-        if: ${{ contains(needs.*.result, 'failure') }}
+        if: ${{ needs.test-matrix.result != 'success' }}
         run: exit 1
 
   test-matrix:
